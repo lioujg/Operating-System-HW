@@ -50,10 +50,10 @@ public:
 	void insert(int input) {
 		if (check[input] == false) {
 			page_fault++;	// occur page fault once
-			check[input] = true;
+			check[input] = true;	// mark input is in the frame
 			link_list *newNode = new link_list(input);
-			if (head == NULL) {	//initialize head and tail
-				head = tail = newNode;
+			if (head == NULL) {	// initialize head and tail
+				head = tail = newNode;	// first time
 			} else {
 				tail->next = newNode;	// add the input to the tail
 				tail = tail->next;
@@ -70,7 +70,7 @@ public:
 		cur = NULL;
 		store_num--;	// store num minus one
 	}
-	void show_fifo(){	// for debug
+	void show_fifo() {	// for debug
 		link_list *cur = head;
 		cout << "show_fifo:" << endl;
 		while (cur != NULL) {
@@ -95,7 +95,7 @@ public:
 			pre = cur;
 			cur = cur->next;
 		}
-		pre->next = cur->next;
+		pre->next = cur->next;	// skip cur
 		tail->next = cur;	// add cur to the end
 		tail = tail->next;
 		cur->next = NULL;	// cur turn to tail
@@ -116,7 +116,7 @@ public:
 			move_node(input);	// switch the order (different from fifo)
 		}
 	}
-	void show_lru(){	// for debug
+	void show_lru() {	// for debug
 		link_list *cur = head;
 		cout << "show_lru:" << endl;
 		while (cur != NULL) {
@@ -129,7 +129,7 @@ public:
 
 int main(int argc, char *argv[]) {
 
-	fifo fifo_(stoi(argv[1]));
+	fifo fifo_(stoi(argv[1]));	// set frame num
 	lru lru_(stoi(argv[1]));
 	int i = 0;
 	while (argv[2][i] != '\0') {
